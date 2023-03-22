@@ -22,7 +22,24 @@ services:
     volumes:
       - ./:/app
       - /app/node_modules
+    env_file:
+      - ./.env
     restart: 'unless-stopped'
+    networks:
+      - backend
+    depends_on:
+      - emulator
+  emulator:
+    image: budtmo/docker-android-x86-11.0
+    container_name: emulator
+    privileged: true
+    environment:
+      - DEVICE=Samsung Galaxy S6
+      - EMULATOR_PARAMS=-no-audio
+    ports:
+      - '6080:6080'
+      - '5554:5554'
+      - '5555:5555'
     networks:
       - backend
 

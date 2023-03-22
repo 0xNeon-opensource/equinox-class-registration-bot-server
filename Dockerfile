@@ -1,6 +1,9 @@
 # Common build stage
 FROM node:14.14.0-alpine3.12 as common-build-stage
 
+# Install dependencies
+RUN apk add --no-cache openjdk8-jre bash curl unzip git
+
 COPY . ./app
 
 WORKDIR /app
